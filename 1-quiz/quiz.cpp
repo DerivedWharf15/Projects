@@ -1,11 +1,10 @@
 #include <iostream>
-#include <string>
 
 using namespace std;
 
 int main()
 {
-    string response;
+    char response;
 
     cout << "Math questions" << '\n';
     cout << "DerivedWharf15's first program" << '\n';
@@ -14,7 +13,7 @@ int main()
     cin >> response;
     cout << endl;
 
-    while (response == 'yes')
+    while (response == 'y')
     {
         cout << "What is 538 + 846" << endl;
         cout << "Do you want to continue?" << endl;
