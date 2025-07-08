@@ -1,3 +1,5 @@
+// This program is still in its prototype stage
+
 #include <iostream>
 
 using namespace std;
