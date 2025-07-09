@@ -70,4 +70,6 @@ int main()
     while (continueCalculating);
 
     cout << "Thank you for using this program" << '\n' << '\n';
+
+    return 0;
 }
