@@ -12,37 +12,42 @@ int main()
     int min = 1;
     int max = 99;
     int guess = 0;
+    char response;
+    int gameCount = 0;
+    int guessCount = 0;
     bool continueGuessing = true;
     int randomNumberInRange = min + (rand() % (max - min + 1)); // Step 2 of generating a random number and assigns it to a named variable
 
     cout << "Number guesser\n";
     cout << "A C++ program made by DerivedWharf15\n\n";
     cout << "Guess a number between 1 to 99\n";
-    cout << "Remember to enter 0 to exit anytime\n";
+    cout << "Remember to enter 0 to exit any time\n";
 
-    do
+    do // Loop
     {
         cout << ">> ";
         cin >> guess;
 
-        if (guess == 0) // If the user wants to exit
-        {
-            cout << "\nThe number was "<< randomNumberInRange;
-            cout << "\nExiting game. Thanks for playing!\n\n";
-            continueGuessing = false;
-        }
-        else if (guess == randomNumberInRange) // If the user guessed correctly
-        {
-            cout << "\nYou guessed the number!\n\n";
-            cout << "Thank you for playing this game\n\n";
-            continueGuessing = false;
-        }
-        else if (cin.fail()) // If the user entered something else other than a number
+        //-------------Every possible scenario-------------//
+
+        if (cin.fail()) // If the user entered something else other than a number
         {
             cout << "\nYou have entered a non-number\n";
             cout << "Please enter a number between 1 to 99 in digits\n";
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        }
+        else if (guess == 0) // If the user wants to exit
+        {
+            cout << "\nThe number was "<< randomNumberInRange;
+            cout << "\nThank you for playing this game\n\n";
+            continueGuessing = false;
+            guessCount++;
+        }
+        else if (guess == randomNumberInRange) // If the user guessed correctly
+        {
+            gameCount++;
+            guessCount++;
         }
         else if (guess > 99) // If they entered a number higher than 99
         {
@@ -55,18 +60,71 @@ int main()
             cout << "\nYour number is lower than 0\n";
             cout << "Enter a number between 1 to 99\n";
             cout << "And enter 0 to exit\n";
+            guessCount++;
         }
         else if (guess > randomNumberInRange) // If the user guessed too high
         {
             cout << "\nToo high, guess lower\n";
+            guessCount++;
         }
         else if (guess < randomNumberInRange) // If the user guessed too low
         {
             cout << "\nToo low, guess higher\n";
+            guessCount++;
+        }
+
+        //-------------When the user wins-------------//
+
+        if (guessCount == 1 && continueGuessing == true) // If the user guessed the number on their first attempt
+        {
+            cout << "\nYou guessed it on your first try!\n";
+            cout << "Congrats!\n\n";
+        }
+        else if (guessCount < 6 && continueGuessing == true) // If the user guessed the number in under 6 attemtps
+        {
+            cout << "\nWhoah you only guessed " << guessCount << " times!";
+            cout << "Congrats!\n\n";
+        }
+        else if (guessCount < 11 && continueGuessing == true) // If the user guessed the number in under 11 attempts
+        {
+            cout << "\nYou guesssed the number!\n";
+            cout << "You only guessed " << guessCount << " times\n\n";
+        }
+        else if (guessCount > 10 && continueGuessing == true) // If the user guessed the number more than 10 attempts
+        {
+            cout << "\nYou guessed the number!\n";
+            cout << "You guessed " << guessCount << " times\n\n";
+        }
+
+        if (continueGuessing == true)
+        {
+            cout << "Would you like to guess another number? (y/n)\n"; // Promt the user if they want to guess again
+            cout << "You played " << gameCount << " time(s)\n";
+            cout << ">> ";
+            cin >> response;
+        }
+
+        if (response == 'Y' || response == 'y' && continueGuessing == true) // If the user wants to guess again
+        {
+            cout << "\nYou chose to guess again\n";
+            cout << "Enter a number between 1 - 99\n";
+            cout << "And enter 0 to exit any time\n";
+            continueGuessing = true;
+            guessCount = 0; // Set the guess counter back to 0
+        }
+        else if (response == 'N' || response == 'n' && continueGuessing == true) // If the user wants to exit
+        {
+            cout << "\nThank you for playing this game\n\n";
+            continueGuessing = false;
+        }
+        else if (continueGuessing == true) // If the user enters neither y nor n
+        {
+            cout << "\nYou have entered neither y nor n, but closing program anyway\n";
+            cout << "Thank you for playing this game\n\n";
+            continueGuessing = false;
         }
     }
     while (continueGuessing);
-
 
     return 0;
 }
