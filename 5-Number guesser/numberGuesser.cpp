@@ -128,3 +128,9 @@ int main()
 
     return 0;
 }
+/* Latest additions:
+    Guess count
+    Games won count
+    Win messages depending on number of attempts
+    Replay option
+*/
